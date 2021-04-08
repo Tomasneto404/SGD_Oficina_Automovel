@@ -168,7 +168,7 @@ def verificaCliente(cargo):
 
 #Home
 @app.route("/admindashboard")
-@login_required
+#@login_required
 def admindashboard():
 
 	numClients = Clients.query.count()
