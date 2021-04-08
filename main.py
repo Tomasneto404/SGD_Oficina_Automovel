@@ -749,7 +749,7 @@ def register():
 ######################################
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run()
 
 
 #Criado por Tomas Neto 2020
