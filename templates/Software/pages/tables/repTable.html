@@ -66,10 +66,18 @@
                                                     
                                                     <td>
                                                         <center>
-                                                            <a href="/admindashboard/repdetails/{{ repaberta.id }}" class="btn btn-info btn-circle btn-sm">
+                                                            <a href="/admindashboard/repdetails/{{ repaberta.id }}" class="btn btn-success btn-circle btn-sm">
                                                             <i class="fas fa-info-circle"></i>
                                                             </a>&nbsp;&nbsp;
-
+                                                            {% if repaberta.estado == 'Aberta' or repaberta.estado == 'Retomada'%}
+                                                            <a href="/pause/rep/{{ repaberta.id }}" class="btn btn-info btn-circle btn-sm">
+                                                            <i class="fas fa-pause"></i>
+                                                            </a>&nbsp;&nbsp;
+                                                            {% else %}
+                                                            <a href="/return/rep/{{ repaberta.id }}" class="btn btn-info btn-circle btn-sm">
+                                                            <i class="fas fa-play"></i>
+                                                            </a>&nbsp;&nbsp;
+                                                            {% endif %}
                                                             {% if current_user.cargo != 'Empregado'%}
                                                                 <a href="/delete/rep/{{ repaberta.id }}" class="btn btn-danger btn-circle btn-sm">
                                                                     <i class="fas fa-trash"></i>
