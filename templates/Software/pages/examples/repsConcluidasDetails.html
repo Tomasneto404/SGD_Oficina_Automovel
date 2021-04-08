@@ -1,0 +1,131 @@
+{%extends 'Software/adminBase.html'%}
+
+{%block title%}<title>Reparação Concluida | Detalhes</title>{%endblock%}
+
+{%block body%}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Reparação Nº {{rep.id}}</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Detalhes Reparação</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="callout callout-info">
+              <h5><i class="fas fa-info"></i> Nota:</h5>
+              Esta página está pronta para ser impressa. Clique em imprimir para imprimir o documento.
+            </div>
+
+
+            <!-- Main content -->
+            <div class="invoice p-3 mb-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12">
+                  <h4>
+                    <i class="fas fa-car"></i> {{oficina.nome}}
+                    <small class="float-right">Data: {{data}}</small>
+                  </h4>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- info row -->
+              <div class="row invoice-info">
+                <div class="col-sm-3 invoice-col">
+                  <address>
+                    <strong>{{oficina.nome}}</strong><br>
+                    {{oficina.morada}}<br>
+                    Telefone: {{oficina.telefone}}<br>
+                    Email: {{oficina.email}}
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-3 invoice-col">
+                  <address>
+                    <strong>Cliente: </strong>{{cliente.nome}}<br>
+                    Número: #{{cliente.id}}<br>
+                    Telefone: {{cliente.telefone}}<br>
+                    Email: {{cliente.email}}
+                  </address>
+                </div>
+                <!-- /.col -->
+
+                <div class="col-sm-3 invoice-col">
+                  
+                  <address>
+                  <b>Veiculo Nº #{{veiculo.id}}</b><br>
+                  Marca: {{veiculo.marca}}<br>
+                  Modelo: {{veiculo.modelo}}<br>
+                  Matricula:{{veiculo.matricula}}<br>
+                  </address>
+                  
+                </div>
+
+                <div class="col-sm-3 invoice-col">
+                  <b>Reparação Nº #{{rep.id}}</b><br>
+                  Iniciado em: {{rep.dataInicio}}<br>
+                  Finalizado em: {{rep.dataFim}}<br>
+                  Mecânico: {{mecanico.nome}}<br>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <!-- Table row -->
+              <div class="row">
+
+                <div class="col-6">
+                  <h3><strong>Detalhes da Reparação</strong></h3>
+                  <p class="lead"><strong>Problema do veículo:</strong></p>
+                  <p class=" well well-sm shadow-none" style="margin-top: 10px;">
+                    {{rep.avaria}}
+                  </p>
+                
+                  <hr>
+                
+                  <p class="lead"><strong>Diagnóstico:</strong></p>
+                  <p class=" well well-sm shadow-none" style="margin-top: 10px;">
+                    {{rep.diagnostico}}
+                  </p>
+                
+                <hr>
+                
+                  <p class="lead"><strong>O que foi feito:</strong></p>
+                  <p class=" well well-sm shadow-none" style="margin-top: 10px;">
+                    {{rep.feito}}
+                  </p>
+                  <hr>
+                </div>
+
+
+              </div>
+              <!-- /.row -->
+
+
+              <!-- this row will not appear when printing -->
+              <div class="row no-print">
+                <div class="col-12">
+                  <a href="/admindashboard/repdetails/print/{{rep.id}}" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Imprimir</a>
+                </div>
+              </div>
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    {%endblock%}

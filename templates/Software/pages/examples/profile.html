@@ -1,0 +1,142 @@
+{%extends 'Software/adminBase.html'%}
+
+{%block title%}<title>Oficina | Registar Cliente</title>{%endblock%}
+
+{%block body%}
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Perfil</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">Perfil</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+
+                <h3 class="profile-username text-center">{{current_user.nome}}</h3>
+
+                <p class="text-muted text-center">{{current_user.cargo}}</p>
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Sobre Mim</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <strong><i class="fas fa-home mr-1"></i> Morada</strong>
+
+                <p class="text-muted">
+                  {{current_user.morada}}
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-phone mr-1"></i> Telemóvel</strong>
+
+                <p class="text-muted">{{current_user.telefone}}</p>
+
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> CC | NIF</strong>
+
+                <p class="text-muted">
+                  <span class="tag tag-danger">{{current_user.cc}}</span>
+                  |
+                  <span class="tag tag-success">{{current_user.nif}}</span>
+                </p>
+
+                <hr>
+
+                <strong><i class="far fa-calendar mr-1"></i> Data de Registo</strong>
+
+                <p class="text-muted">{{current_user.data_registo}}</p>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item "><a class="nav-link active" href="#activity" data-toggle="tab">Definições</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane active" id="activity">
+                    {% if current_user.cargo != 'Empregado'%}
+                    <form action="#" method="POST" class="form-horizontal">
+                      {%endif%}
+                      <div class="form-group row">
+                        <label for="inputName" class="col-sm-2 col-form-label">Nome</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputName" value="{{current_user.nome}}" {% if current_user.cargo != 'Patrao'%} disabled {%endif%}>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                          <input type="email" class="form-control" id="inputEmail" value="{{current_user.email}}" {% if current_user.cargo != 'Patrao'%} disabled {%endif%}>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputName2" class="col-sm-2 col-form-label">Morada</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputName2" value="{{current_user.morada}}" {% if current_user.cargo != 'Patrao'%} disabled {%endif%}>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputName2" class="col-sm-2 col-form-label">Telemóvel</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputName2" value="{{current_user.telefone}}" {% if current_user.cargo != 'Patrao'%} disabled {%endif%}>
+                        </div>
+                      </div>
+                      {% if current_user.cargo != 'Empregado'%}
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger">Alterar</button>
+                        </div>
+                      </div>
+                      
+                    </form>
+                    {%endif%}
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  {%endblock%}

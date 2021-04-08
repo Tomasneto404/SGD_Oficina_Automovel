@@ -1,0 +1,169 @@
+{%extends 'Software/adminBase.html'%} {%block title%}
+
+<title>Oficina | Lista Reparações</title>{%endblock%} 
+
+
+{%block body%}
+        
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Lista Reparações</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/admindashboard">Home</a></li>
+                                <li class="breadcrumb-item active">Lista de Reparações</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+                {% with messages = get_flashed_messages(with_categories = true) %}
+                    {% for category, message in messages %}
+                    <div class="card card-{{category}}">
+                        <div class="card-header">
+                            <center>{{message}}</center>    
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endwith %}
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="card card-warning">
+                                <div class="card-header"><h3 class="card-title">Reparações abertas</h3></div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Cliente</th>
+                                                <th>Veiculo</th>
+                                                <th>Data Inicio</th>
+                                                <th>Estado</th>
+                                                <th>Opções</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for repaberta in repabertas%}
+
+                                                <tr>
+                                                    <td>{{ repaberta.id }}</td>
+                                                    <td><a href="/admindashboard/client/{{ repaberta.cliente }}">{{ repaberta.cliente  }}</a></td>
+                                                    <td>{{ repaberta.veiculo  }}</td>
+                                                    <td>{{ repaberta.dataInicio  }}</td>
+                                                    <td>{{ repaberta.estado }}</td>
+                                                    
+                                                    
+                                                    <td>
+                                                        <center>
+                                                            <a href="/admindashboard/repdetails/{{ repaberta.id }}" class="btn btn-info btn-circle btn-sm">
+                                                            <i class="fas fa-info-circle"></i>
+                                                            </a>&nbsp;&nbsp;
+
+                                                            {% if current_user.cargo != 'Empregado'%}
+                                                                <a href="/delete/rep/{{ repaberta.id }}" class="btn btn-danger btn-circle btn-sm">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </a>
+                                                            {% endif %}
+                                                        </center>
+                                                    </td>
+                                                </tr>
+                                        
+                                            {%endfor%}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Cliente</th>
+                                                <th>Veiculo</th>
+                                                <th>Data Inicio</th>
+                                                <th>Estado</th>
+                                                <th>Opções</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+
+                            <div class="card card-success">
+                                <div class="card-header"><h3 class="card-title ">Reparações concluidas</h3></div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example2" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Cliente</th>
+                                                <th>Veiculo</th>
+                                                <th>Data Inicio</th>
+                                                <th>Data Fim</th>
+                                                <th>Estado</th>
+                                                <th>Opções</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for repconcluida in repconcluidas%}
+                                                <tr>
+                                                    <td>{{ repconcluida.id }}</td>
+                                                    <td><a href="/admindashboard/client/{{ repconcluida.cliente }}">{{repconcluida.cliente}}</a></td>
+                                                    <td>{{ repconcluida.veiculo  }}</td>
+                                                    <td>{{ repconcluida.dataInicio  }}</td>
+                                                    <td>{{ repconcluida.dataFim   }}</td>
+                                                    <td>{{ repconcluida.estado }}</td>
+                                                     
+                                                    <td>
+                                                        <center>
+                                                            <a href="/admindashboard/repdetails/{{ repconcluida.id }}" class="btn btn-info btn-circle btn-sm">
+                                                            <i class="fas fa-info-circle"></i>
+                                                            </a>&nbsp;&nbsp;
+
+                                                            {% if current_user.cargo != 'Empregado'%}
+                                                                <a href="/delete/rep/{{ repconcluida.id }}" class="btn btn-danger btn-circle btn-sm">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </a>
+                                                            {% endif %}
+                                                        </center>
+                                                    </td>
+                                                </tr>
+                                            {%endfor%}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Cliente</th>
+                                                <th>Veiculo</th>
+                                                <th>Data Inicio</th>
+                                                <th>Data Fim</th>
+                                                <th>Estado</th>
+                                                <th>Opções</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        {%endblock%}
+        

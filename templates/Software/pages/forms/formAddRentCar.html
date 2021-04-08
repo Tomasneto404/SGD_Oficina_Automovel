@@ -1,0 +1,161 @@
+{%extends 'Software/adminBase.html'%} {%block title%}
+<title>Oficina | Registar Automóvel de Aluguer</title>{%endblock%} 
+{%block body%}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Folha de registo automóveis de aluguer</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a href="/">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Registo automóveis de aluguer</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Dados Veículos</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <form action="" method="">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Marca:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" data-mask>
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+                                <!-- /.form-group -->
+                                <div class="form-group">
+                                    <label>Matricula:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-car-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control" data-inputmask="'mask': ['**-**-**']" data-mask style="text-transform: uppercase;">
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nº Chassi:</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" data-mask>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Potência:</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" data-mask>
+                                                </div>
+                                            </div>
+                                            <!-- /.form-group -->
+                                            <div class="form-group">
+                                                <label>Celindrada:</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" data-mask>
+                                                    </div>
+                                                </div>
+                                                <!-- /.form-group -->
+                                                <div class="form-group">
+                                                    <label>Plataforma:</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" data-mask>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.form-group -->
+                                                    <button type="submit" class="btn btn-block btn-secondary btn-normal" data-toggle="modal" data-target="#modal-lg">Registar Automóvel</button>
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Modelo:</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" data-mask>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.form-group -->
+                                                        <div class="form-group">
+                                                            <label>Mes/Ano:</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="fas fa-calendar-alt"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <input type="text" class="form-control" placeholder="Ex: 06/2002" data-inputmask="'mask': ['99/9999']" data-mask>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /.form-group -->
+                                                            <div class="form-group">
+                                                                <label>Combustivel:</label>
+                                                                <div class="input-group">
+                                                                    <select class="form-control select2" style="width: 100%;">
+                                                                        <option selected>Escolher</option>
+                                                                        <option>Gasolina</option>
+                                                                        <option>Diesel</option>
+                                                                        <option>GPL</option>
+                                                                        <option>Elétrico</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /.form-group -->
+                                                            <div class="form-group">
+                                                                <label>Tipo de Transmissão:</label>
+                                                                <div class="input-group">
+                                                                    <select class="form-control select2" style="width: 100%;">
+                                                                        <option selected>Escolher</option>
+                                                                        <option>Manual</option>
+                                                                        <option>Automática</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /.form-group -->
+                                                            <div class="form-group">
+                                                                <label>Tipo de Viatura:</label>
+                                                                <div class="input-group">
+                                                                    <select class="form-control select2" style="width: 100%;">
+                                                                        <option selected>Escolher</option>
+                                                                        <option>Ligeiro Passageiros</option>
+                                                                        <option>Ligeiro Comercial</option>
+                                                                        <option>Pesado Passageiros</option>
+                                                                        <option>Pesado Comercial</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /.form-group -->
+                                                        </div>
+                                                        <!-- /.col -->
+                                                    </div>
+                                                    <!-- /.row -->
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- /.card -->
+                                    </div>
+                                    <!-- /.container-fluid -->
+                                </section>
+                                <!-- /.content -->
+                            </div>
+
+{%endblock%}

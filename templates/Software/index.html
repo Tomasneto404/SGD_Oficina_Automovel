@@ -1,0 +1,186 @@
+{%extends 'Software/adminBase.html'%}
+
+{%block title%}<title>Oficina | Main</title>{%endblock%}
+
+{%block body%}
+<!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Home</h1>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item active">Home</li>
+                            </ol>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <section class="content">
+
+                <div class="container-fluid">
+                    <!-- Small boxes (Stat box) -->
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3>{{numClients}}</h3>
+
+                                    <p>Clientes</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <a href="/admindashboard/listclients" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{numReps}}</h3>
+
+                                    <p>Reparações</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-clipboard"></i>
+                                </div>
+                                <a href="/admindashboard/listreps" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3>{{numVei}}</h3>
+
+                                    <p>Veículos</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <a href="/admindashboard/listclientcar" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3>{{numFunc}}</h3>
+
+                                    <p>Funcionários da oficina</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-list"></i>
+                                </div>
+                                <a href="/admindashboard/listafunc" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                    </div>
+                    <!-- /.row -->
+                    <!-- Main row -->
+                    <div class="row">
+                        <!-- Left col -->
+                        <section class="col-lg-6 connectedSortable">
+                            <!-- TO DO List -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="ion ion-clipboard mr-1"></i> Registos
+                                    </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <ul class="todo-list" data-widget="todo-list">
+                                        <li>
+                                            <!-- todo text -->
+                                            <span class="text"><a class="btn btn-block btn-primary" href="/admindashboard/addclient">Novo Cliente</a></span>
+
+                                        </li>
+                                        <li>
+                                            <!-- todo text -->
+                                            <span class="text"><a class="btn btn-block btn-primary" href="/admindashboard/addcar">Novo Veículo</a></span>
+
+                                        </li>
+                                        <li>
+                                            <!-- todo text -->
+                                            <span class="text"><a class="btn btn-block btn-primary" href="/admindashboard/newrepair">Nova Reparação</a></span>
+
+                                        </li>
+                                        {% if current_user.cargo != 'Empregado'%}
+                                        <li>
+                                            <!-- todo text -->
+                                            <span class="text"><a class="btn btn-block btn-primary" href="/admindashboard/addfunc">Novo Funcionário</a></span>
+
+                                        </li>
+                                        {%endif%}
+
+                                    </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /.card -->
+                        </section>
+                        <!-- /.Left col -->
+
+                        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                        <section class="col-lg-6 connectedSortable">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="ion ion-clipboard mr-1"></i> Listas
+                                    </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <ul class="todo-list" data-widget="todo-list">
+                                        <li>
+                                            <!-- todo text -->
+                                            <span class="text"><a class="btn btn-block btn-primary" href="/admindashboard/listclients">Lista Clientes</a></span>
+
+                                        </li>
+                                        <li>
+                                            <!-- todo text -->
+                                            <span class="text"><a class="btn btn-block btn-primary" href="/admindashboard/listclientcar">Lista Veículos</a></span>
+
+                                        </li>
+                                        <li>
+                                            <!-- todo text -->
+                                            <span class="text"><a class="btn btn-block btn-primary" href="/admindashboard/listreps">Lista Reparações</a></span>
+
+                                        </li>
+                                        {% if current_user.cargo != 'Empregado'%}
+                                        <li>
+                                            <!-- todo text -->
+                                            <span class="text"><a class="btn btn-block btn-primary" href="/admindashboard/listafunc">Lista Funcionários</a></span>
+
+                                        </li>
+                                        {%endif%}
+
+                                    </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- right col -->
+                    </div>
+                    <!-- /.row (main row) -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+{%endblock%}

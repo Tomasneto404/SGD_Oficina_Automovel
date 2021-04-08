@@ -1,0 +1,157 @@
+
+{%extends 'Software/adminBase.html'%}
+
+{%block title%}<title>Oficina | Registar Cliente</title>{%endblock%}
+
+{%block body%}
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Folha de registo clientes</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active">Registo cliente</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+                {% with messages = get_flashed_messages(with_categories = true) %}
+                    {% for category, message in messages %}
+                    <div class="card card-{{category}}">
+                        <div class="card-header">
+                            <center>{{message}}</center>    
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endwith %}
+            </section>
+            
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- SELECT2 EXAMPLE -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Dados Cliente</h3>
+                            
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                            </div>
+                        </div>
+                        
+                        <!-- /.card-header -->
+                        <form action="#" method="POST">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nome:</label>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" data-mask name="nome" required>
+                                            </div>
+                                            <!-- /.input group -->
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Nº Cartão Cidadão:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control"data-inputmask="'mask': ['99999999']" data-mask name="cc" required>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>NIF:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-id-card-alt"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" data-inputmask="'mask': ['999999999']" data-mask name="nif" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Password:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                                </div>
+                                                <input type="password" class="form-control" data-mask name="pwd" required>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <button type="submit" class="btn btn-block btn-secondary btn-normal">Registar Funcionário</button>
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Morada:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="morada" data-mask required>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Telemóvel:</label>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="telemovel" data-inputmask="'mask': ['999999999']" data-mask required>
+                                            </div>
+                                            <!-- /.input group -->
+                                        </div>
+
+
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Email:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" data-mask name="clientemail">
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Cargo:</label>
+                                            <div class="input-group">
+                                                <select class="form-control select2" style="width: 100%;" required name="cargo">
+                                                    <option value="Empregado">Empregado</option>
+                                                    <option value="Gerente" >Gerente</option>
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            
+            
+       {%endblock%}

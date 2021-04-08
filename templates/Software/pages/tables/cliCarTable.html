@@ -1,0 +1,111 @@
+{%extends 'Software/adminBase.html'%} {%block title%}
+
+<title>Oficina | Lista Automóvel de Clientes</title>{%endblock%} 
+
+
+{%block body%}
+
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Lista Automóveis</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/admindashboard">Home</a></li>
+                                <li class="breadcrumb-item active">Lista Automóvel de Clientes</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="card">
+                                
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Id veiculo</th>
+                                                <th>Dono</th>
+                                                <th>Marca</th>
+                                                <th>Modelo</th>
+                                                <th>Matrícula</th>
+                                                <th>Combustivel</th>
+                                                <th>Potencia</th>
+                                                <th>Nº Chassi</th>
+                                                <th>Opções</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for veiculo in veiculos%}
+
+                                        <tr>
+                                            <td>{{ veiculo.id }}</td>
+                                            <td><a href="/admindashboard/client/{{ veiculo.dono }}">{{ veiculo.dono }}</a></td>
+                                            <td>{{ veiculo.marca }}</td>
+                                            <td>{{ veiculo.modelo }}</td>
+                                            <td>{{ veiculo.matricula }}</td>
+                                            <td>{{ veiculo.combustivel }}</td>
+                                            <td>{{ veiculo.potencia }}</td>
+                                            <td>{{ veiculo.num_chassi }}</td>
+                                            
+                                            <td>
+                                                <center>
+                                                    <a href="/admindashboard/veiculo/{{ veiculo.id }}" class="btn btn-info btn-circle btn-sm">
+                                                    <i class="fas fa-info-circle"></i>
+                                                    </a>&nbsp;&nbsp;
+
+                                                    {% if current_user.cargo != 'Empregado'%}
+                                                        <a href="/delete/veiculo/{{ veiculo.id }}" class="btn btn-danger btn-circle btn-sm">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        
+                                        {%endfor%}
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Id veiculo</th>
+                                                <th>Dono</th>
+                                                <th>Marca</th>
+                                                <th>Modelo</th>
+                                                <th>Matrícula</th>
+                                                <th>Combustivel</th>
+                                                <th>Potencia</th>
+                                                <th>Nº Chassi</th>
+                                                <th>Opções</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+
+        </div>
+        <!-- /.content-wrapper -->
+        {%endblock%}
+        

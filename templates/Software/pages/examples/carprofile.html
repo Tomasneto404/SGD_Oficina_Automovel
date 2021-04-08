@@ -1,0 +1,235 @@
+{%extends 'Software/adminBase.html'%}
+
+{%block title%}<title>Oficina | Registar dono</title>{%endblock%}
+
+{%block body%}
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Perfil Veiculo</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">Perfil</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  
+                </div>
+
+                <h3 class="profile-username text-center">{{veiculo.marca}} {{veiculo.modelo}}</h3>
+
+                <!--<p class="text-muted text-center">{{current_user.cargo}}</p>-->
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Sobre o veículo</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <strong> Dono</strong>
+
+                <p class="text-muted">
+                  <a href="/admindashboard/client/{{dono.id}}">{{dono.nome}}</a>
+                </p>
+
+                <hr>
+
+                <strong> Matricula</strong>
+
+                <p class="text-muted">{{veiculo.matricula}}</p>
+
+                <hr>
+
+                <strong> Mês e Ano</strong>
+
+                <p class="text-muted">
+                  <span class="tag tag-danger">{{veiculo.mes_ano}}</span>
+                </p>
+
+                <hr>
+
+                <strong> Número de chassi</strong>
+
+                <p class="text-muted">{{veiculo.num_chassi}}</p>
+
+                <hr>
+
+                <strong>Combustivel</strong>
+
+                <p class="text-muted">{{veiculo.combustivel}}</p>
+
+                <hr>
+
+                <strong> Potência</strong>
+
+                <p class="text-muted">{{veiculo.potencia}}</p>
+
+                <hr>
+
+                <strong>Transmissão</strong>
+
+                <p class="text-muted">{{veiculo.transmissao}}</p>
+
+                <hr>
+
+                <strong> Cilindrada</strong>
+
+                <p class="text-muted">{{veiculo.cilindrada}}</p>
+
+                <hr>
+
+                <strong> Tipo</strong>
+
+                <p class="text-muted">{{veiculo.tipo}}</p>
+
+                <hr>
+
+                <strong> Plataforma</strong>
+
+                <p class="text-muted">{{veiculo.plataforma}}</p>
+
+                <hr>
+
+                <strong> Data Registo</strong>
+
+                <p class="text-muted">{{veiculo.data_registo}}</p>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Reparações</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Definições</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="active tab-pane" id="activity">
+                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Mecanico</th>
+                                                <th>Data</th>
+                                                <th>Estado</th>
+                                                
+                                                <th>Opções</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for rep in reps%}
+
+                                        <tr>
+                                            <td>{{ rep.id }}</td>
+                                            <td><a href="/admindashboard/func/{{ rep.mecanico }}">{{ rep.mecanico }}</a></td>
+                                            <td>{{ rep.dataInicio }}</td>
+                                            <td>{{ rep.estado }}</td>
+                                            
+                                            
+                                            <td>
+                                                <center>
+                                                    <a href="/admindashboard/repdetails/{{ rep.id }}" class="btn btn-info btn-circle btn-sm">
+                                                    <i class="fas fa-info-circle"></i>
+                                                    </a>&nbsp;&nbsp;
+
+                                                    {% if current_user.cargo != 'Empregado'%}
+                                                        <a href="/delete/rep/{{ rep.id }}" class="btn btn-danger btn-circle btn-sm">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                </center>
+                                            </td>
+                                        </tr>
+                                        
+                                        {%endfor%}
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Mecanico</th>
+                                                <th>Data</th>
+                                                <th>Estado</th>
+                                                
+                                                <th>Opções</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="settings">
+                    <form action="#" method="POST" class="form-horizontal">
+                      <div class="form-group row">
+                        <label for="inputName" class="col-sm-2 col-form-label">Nome</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputName" value="{{dono.nome}}" {% if current_user.cargo != 'Patrao'%} disabled {%endif%}>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                          <input type="email" class="form-control" id="inputEmail" value="{{dono.email}}" {% if current_user.cargo != 'Patrao'%} disabled {%endif%}>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputName2" class="col-sm-2 col-form-label">Morada</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputName2" value="{{dono.morada}}" {% if current_user.cargo != 'Patrao'%} disabled {%endif%}>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputName2" class="col-sm-2 col-form-label">Telemóvel</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="inputName2" value="{{dono.telefone}}" {% if current_user.cargo != 'Patrao'%} disabled {%endif%}>
+                        </div>
+                      </div>
+                      {% if current_user.cargo != 'Empregado'%}
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger">Alterar</button>
+                        </div>
+                      </div>
+                      {%endif%}
+                    </form>
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  {%endblock%}

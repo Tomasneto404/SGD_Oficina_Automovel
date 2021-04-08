@@ -1,0 +1,207 @@
+
+
+{%extends 'Software/adminBase.html'%}
+
+{%block title%}<title>Oficina | Registar Automóvel</title>{%endblock%}
+
+{%block body%}
+<section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Folha de registo veículos</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active">Registo veículos</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+                {% with messages = get_flashed_messages(with_categories = true) %}
+                    {% for category, message in messages %}
+                    <div class="card card-{{category}}">
+                        <div class="card-header">
+                            <center>{{message}}</center>    
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endwith %}
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <!-- SELECT2 EXAMPLE -->
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Dados Veículos</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <form action="#" method="POST">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Marca:</label>
+
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="marca" required data-mask>
+                                            </div>
+                                            <!-- /.input group -->
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Matricula:</label>
+
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-car-alt"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" required data-inputmask="'mask': ['**-**-**']" data-mask name="matricula" style="text-transform: uppercase;">
+                                            </div>
+                                            <!-- /.input group -->
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Nº Chassi:</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="nchassi" data-mask required>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Potência (cv):</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" name="potencia" data-mask required>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Cilindrada (cm3):</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="cilindrada"  data-mask required>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Plataforma:</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="plataforma" data-mask required>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <button type="button" class="btn btn-block btn-secondary btn-normal" data-toggle="modal" data-target="#modal-default">Associar a Cliente</button>
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Modelo:</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="modelo" data-mask required>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Mes/Ano:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" name="mesano" placeholder="Ex: 06/2002" data-inputmask="'mask': ['99/9999']" data-mask required>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Combustivel:</label>
+                                            <div class="input-group">
+                                                <select class="form-control select2" style="width: 100%;" required name="combustivel">
+                                                    <option selected>Escolher</option>
+                                                    <option value="Gasolina" >Gasolina</option>
+                                                    <option value="Diesel">Diesel</option>
+                                                    <option value="GPL">GPL</option>
+                                                    <option value="Elétrico">Elétrico</option>
+                                                  </select>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Tipo de Transmissão:</label>
+                                            <div class="input-group">
+                                                <select class="form-control select2" style="width: 100%;" required name="caixa">
+                                                    <option selected>Escolher</option>
+                                                    <option value="Manual">Manual</option>
+                                                    <option value="Automática">Automática</option>
+                                                  </select>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Tipo de Viatura:</label>
+                                            <div class="input-group">
+                                                <select class="form-control select2" style="width: 100%;" name="tipo">
+                                                    <option selected>Escolher</option>
+                                                    <option value="Ligeiro Passageiros">Ligeiro Passageiros</option>
+                                                    <option value="Ligeiro Comercial">Ligeiro Comercial</option>
+                                                    <option value="Pesado Passageiros">Pesado Passageiros</option>
+                                                    <option value="Pesado Comercial">Pesado Comercial</option>
+                                                  </select>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+
+
+                            </div>
+                        
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+
+        <div class="modal fade" id="modal-default">
+            <div class="modal-dialog modal-default">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Associar Cliente</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    </div>
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="form-group">
+                                            <label>Id | Nome | Telemóvel</label>
+                                            <div class="input-group">
+                                                <select class="form-control select2" style="width: 100%;" name="dono">
+                                                    {%for client in clients%}
+                                                    <option value="{{ client.id }}"><center>{{ client.id }} | {{ client.nome }} | {{ client.telefone }}</center></option>
+                                                    {%endfor%}
+                                                  </select>
+                                            </div>
+                                        </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Registar</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <!-- /.modal-content -->
+{%endblock%}
