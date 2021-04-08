@@ -4,6 +4,7 @@ from flask_login import LoginManager, login_user, UserMixin, login_required, cur
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, date
 from flask_mail import Mail, Message
+import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'arrozcomatum'
@@ -15,6 +16,7 @@ bcrypt = Bcrypt(app)
 #             BASE DE DADOS              # 
 ##########################################
 today = date.today()
+tempo_inicio = time.time()
 
 db = SQLAlchemy(app)
 #db.create_all()
@@ -84,26 +86,6 @@ class Veiculo(db.Model):
 		return 'Veiculo ' + str(self.id)
 
 
-class VeiculosAluger(db.Model):
-	id = db.Column(db.Integer, primary_key = True)
-	marca = db.Column(db.String(50), nullable = False)
-	modelo = db.Column(db.String(50), nullable = False)
-	matricula = db.Column(db.String(9), nullable = False, unique=True)
-	mes_ano = db.Column(db.String(8), nullable = False)
-	lugares = db.Column(db.Integer, nullable = False)
-	num_chassi = db.Column(db.String(100), nullable = False, unique=True)
-	combustivel = db.Column(db.String(10), nullable = False)
-	potencia = db.Column(db.String(10), nullable = False, default = "Nao inserido")
-	transmissao = db.Column(db.String(20), nullable = False, default = "Nao inserido")
-	cilindrada = db.Column(db.String(10), nullable = False, default = "Nao inserido")
-	tipo = db.Column(db.String(30), nullable = False, default = "Nao inserido")
-	plataforma = db.Column(db.String(20), nullable = False, default = "Nao inserido")
-	data_registo = db.Column(db.String(20), nullable =False, default= today.strftime("%d/%m/%Y") )
-
-	def __repr__(self):
-		return 'Veiculo Aluguer ' + str(self.id)
-
-
 
 class Alugueres(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -125,6 +107,8 @@ class reparacoes(db.Model):
 	mecanico = db.Column(db.Integer, nullable = False)
 	dataInicio = db.Column(db.String(20), nullable = False, default = today.strftime("%d/%m/%Y") )
 	dataFim = db.Column(db.String(20), nullable =False, default = today.strftime("%d/%m/%Y") )
+	tempoInicio = db.Column(db.Integer, nullable = False, default = 0)
+	tempoFim = db.Column(db.Integer, nullable = False, default = time.time())
 	avaria = db.Column(db.String(500), nullable = False)
 	feito = db.Column(db.String(500), nullable = False)
 	diagnostico = db.Column(db.String(500), nullable = False)
@@ -271,8 +255,23 @@ def repdetails(id):
 				dataFim = data
 				estado = "Concluida"
 
+				if rep.estado == "Aberta":
+
+					tmp_agora = time.time()
+
+					tmp_inicio = rep.tempoFim
+
+					registarTempo = (tmp_agora - tmp_inicio) / 3600
+					tmp_formatado = round(registarTempo, 2)
+
+				else:
+
+					tmp_fim = time.time()
+					tmp_registar = rep.tempoInicio / 3600
+					tmp_formatado = round(tmp_registar, 2)
+
 				try:
-					num_rows_updated = reparacoes.query.filter(reparacoes.id == id).update(dict(diagnostico = diagnostico, avaria = avaria, feito = feito, estado = estado, dataFim = dataFim))
+					num_rows_updated = reparacoes.query.filter(reparacoes.id == id).update(dict(diagnostico = diagnostico, avaria = avaria, feito = feito, estado = estado, dataFim = dataFim, tempoInicio = tmp_formatado))
 					db.session.commit()
 					flash('Reparação concluida com sucesso.','success')
 					return redirect("/admindashboard/listreps")
@@ -396,6 +395,53 @@ def repdelete(id):
 
 	#return render_template("Software/pages/examples/clientprofile.html")
 
+
+#Pausar reparacao
+@app.route("/pause/rep/<id>")
+@login_required
+def reppause(id):
+
+	rep_to_pause = reparacoes.query.get_or_404(id)
+
+	tmp_agora = time.time()
+
+	tmp_inicio = rep_to_pause.tempoFim
+
+	tmpGuardado = rep_to_pause.tempoInicio
+
+	registarTempo = (tmp_agora - tmp_inicio) + tmpGuardado
+
+	try:
+		num_rows_updated = reparacoes.query.filter(reparacoes.id == id).update(dict(estado = "Pausa", tempoInicio = registarTempo))
+		db.session.commit()
+		flash('Reparação em pausa.','success')
+		return redirect("/admindashboard/listreps")
+
+	except:
+		flash('Houve um problema a colocar a reparação em pausa.','danger')
+		return redirect("/admindashboard/listreps")
+
+	#return render_template("Software/pages/examples/clientprofile.html")
+
+@app.route("/return/rep/<id>")
+@login_required
+def repreturn(id):
+
+	rep_to_return = reparacoes.query.get_or_404(id)
+
+	tmp_registar = time.time()
+
+	try:
+		num_rows_updated = reparacoes.query.filter(reparacoes.id == id).update(dict(estado = "Retomada", tempoFim = tmp_registar))
+		db.session.commit()
+		flash('Reparação retomada.','success')
+		return redirect("/admindashboard/listreps")
+
+	except:
+		flash('Houve um problema a colocar a reparação em pausa.','danger')
+		return redirect("/admindashboard/listreps")
+
+	#return render_template("Software/pages/examples/clientprofile.html")
 
 ############
 # Registos #
@@ -612,7 +658,7 @@ def listFunc():
 @login_required
 def listreps():
 
-	reps_abertas = reparacoes.query.filter(reparacoes.estado == 'Aberta')
+	reps_abertas = reparacoes.query.filter(reparacoes.estado != 'Concluida')
 	reps_concluidas = reparacoes.query.filter(reparacoes.estado == 'Concluida')
 
 	return render_template("Software/pages/tables/repTable.html", repabertas = reps_abertas, repconcluidas = reps_concluidas)
