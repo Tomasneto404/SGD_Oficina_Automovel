@@ -643,7 +643,7 @@ def listFunc():
 
 	if current_user.cargo == 'Patrao':
 
-		all_funcs = users.query.filter(users.cargo != 'Patrao')
+		all_funcs = users.query.all()
 		return render_template("Software/pages/tables/funcTable.html", funcs=all_funcs)
 
 	else:
